@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Obra from '../components/Obra.astro';
+import Card from '../components/Card.astro';
+import { obras } from '../data/obras';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
+const d = obras[0];
+---
+<Base title="Atelier Vértice · Arquitetura e construção">
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">Arquitetura · Construção · Desde 2009</span>
+    <h1>Edifícios que <em>pertencem</em> ao lugar onde pousam.</h1>
+    <p class="lead">Projetamos e construímos casas, edifícios corporativos e espaços culturais. Do primeiro croqui à entrega das chaves, com uma equipe só.</p>
+    <div class="hero-img"><Obra forma={d.forma} paleta={d.paleta} id="hero" meet/></div>
+  </div></section>
+  <div class="wrap"><div class="stats">
+    <div><b>112</b><span>obras entregues</span></div><div><b>16</b><span>anos de escritório</span></div>
+    <div><b>240 mil</b><span>m² construídos</span></div><div><b>38</b><span>prêmios e menções</span></div>
+  </div></div>
+  <section><div class="wrap">
+    <div class="row"><div><span class="eyebrow">Obras selecionadas</span><h2>Um recorte do que construímos</h2></div><a class="link" href={`${b}/obras/`}>Ver todas as obras →</a></div>
+    <div class="grid" style="margin-top:2.5rem">{obras.slice(0, 6).map((o) => <Card o={o} />)}</div>
+  </div></section>
+  <section class="dark"><div class="wrap split">
+    <div><span class="eyebrow">Como trabalhamos</span><h2>Projeto e obra na mesma mesa</h2></div>
+    <div><p class="lead" style="margin-top:0">Quem desenha acompanha o canteiro. Isso reduz retrabalho, protege o orçamento e mantém a ideia original até o último acabamento.</p><p style="margin-top:1.5rem"><a class="link" style="color:#e3a07f" href={`${b}/processo/`}>Conheça as cinco etapas →</a></p></div>
+  </div></section>
+  <section><div class="wrap"><span class="eyebrow">Próximo projeto</span><h2>Tem um terreno e uma ideia?</h2><p class="lead">Conte o que você imagina. Respondemos em até dois dias úteis.</p><p style="margin-top:2rem"><a class="btn" href={`${b}/contato/`}>Iniciar conversa</a></p></div></section>
+</Base>

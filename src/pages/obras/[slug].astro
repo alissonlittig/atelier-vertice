@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import Obra from '../../components/Obra.astro';
+import Card from '../../components/Card.astro';
+import { obras } from '../../data/obras';
+export const getStaticPaths = () => obras.map((o) => ({ params: { slug: o.slug }, props: { o } }));
+const { o } = Astro.props;
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rel = [...obras.filter((x) => x.slug !== o.slug && x.tipo === o.tipo), ...obras.filter((x) => x.slug !== o.slug && x.tipo !== o.tipo)].slice(0, 3);
+---
+<Base title={`${o.nome} · Atelier Vértice`} desc={o.resumo}>
+  <section class="hero"><div class="wrap">
+    <a class="link" href={`${b}/obras/`}>← Todas as obras</a>
+    <span class="eyebrow" style="margin-top:1.5rem">{o.tipo} · {o.cidade}</span>
+    <h1>{o.nome}</h1><p class="lead">{o.resumo}</p>
+    <div class="hero-img"><Obra forma={o.forma} paleta={o.paleta} id={`d-${o.slug}`} meet/></div>
+  </div></section>
+  <section><div class="wrap split">
+    <dl class="dl">
+      <div><dt>Ano</dt><dd>{o.ano}</dd></div><div><dt>Área</dt><dd>{o.area.toLocaleString('pt-BR')} m²</dd></div>
+      <div><dt>Situação</dt><dd>{o.status}</dd></div>
+      {o.ficha.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+    </dl>
+    <div class="prose">{o.texto.map((t) => <p>{t}</p>)}<p style="font-size:.85rem;color:var(--mut)">Ilustração esquemática. Projeto fictício para demonstração.</p></div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><h2>Outras obras</h2><div class="grid" style="margin-top:2rem">{rel.map((x) => <Card o={x} />)}</div></div></section>
+</Base>

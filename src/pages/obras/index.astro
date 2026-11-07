@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import Card from '../../components/Card.astro';
+import { obras, tipos } from '../../data/obras';
+---
+<Base title="Obras · Atelier Vértice" desc="Portfólio de obras do Atelier Vértice, com filtros por tipologia e situação.">
+  <section><div class="wrap">
+    <span class="eyebrow">Portfólio</span><h1>Obras</h1>
+    <div class="filters" role="group" aria-label="Filtros">
+      <button class="chip" data-f="tipo" data-v="" aria-pressed="true">Todas</button>
+      {tipos.map((t) => <button class="chip" data-f="tipo" data-v={t} aria-pressed="false">{t}</button>)}
+      <button class="chip" data-f="status" data-v="Em obra" aria-pressed="false">Somente em obra</button>
+      <button class="chip" id="ord" aria-pressed="false">Mais recentes primeiro</button>
+    </div>
+    <p aria-live="polite" id="cnt" style="color:var(--mut);font-size:.9rem;margin-bottom:1.5rem">{obras.length} obras</p>
+    <div class="grid" id="lista">{obras.map((o) => <Card o={o} />)}</div>
+    <p id="vazio" hidden style="margin-top:2rem">Nenhuma obra com esse filtro.</p>
+  </div></section>
+  <script>
+    const cards = [...document.querySelectorAll<HTMLElement>('#lista .card')];
+    const lista = document.getElementById('lista')!;
+    const st = { tipo: '', status: '', rec: false };
+    const aplicar = () => {
+      let n = 0;
+      cards.forEach((c) => { const ok = (!st.tipo || c.dataset.tipo === st.tipo) && (!st.status || c.dataset.status === st.status); c.hidden = !ok; if (ok) n++; });
+      const ord = st.rec ? [...cards].sort((a, b) => +b.dataset.ano! - +a.dataset.ano!) : cards;
+      ord.forEach((c) => lista.appendChild(c));
+      document.getElementById('cnt')!.textContent = n + (n === 1 ? ' obra' : ' obras');
+      document.getElementById('vazio')!.hidden = n > 0;
+    };
+    document.querySelectorAll<HTMLButtonElement>('.chip[data-f]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.f === 'status') { st.status = st.status ? '' : b.dataset.v!; b.setAttribute('aria-pressed', String(!!st.status)); }
+      else { st.tipo = b.dataset.v!; document.querySelectorAll('.chip[data-f=tipo]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); }
+      aplicar();
+    }));
+    document.getElementById('ord')!.addEventListener('click', (e) => { st.rec = !st.rec; (e.currentTarget as HTMLElement).setAttribute('aria-pressed', String(st.rec)); aplicar(); });
+  </script>
+</Base>

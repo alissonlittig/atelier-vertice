@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+const eq = [['Helena Marques', 'Sócia-fundadora, arquiteta'], ['Rafael Duarte', 'Sócio, engenheiro civil'], ['Beatriz Nogueira', 'Diretora de projetos'], ['Tomás Aguiar', 'Gerente de obras']];
+---
+<Base title="Escritório · Atelier Vértice" desc="Conheça a história e a equipe do Atelier Vértice.">
+  <section><div class="wrap">
+    <span class="eyebrow">Escritório</span><h1>Desenho com rigor de canteiro</h1>
+    <div class="split" style="margin-top:3rem"><p class="lead" style="margin-top:0">Fundado em 2009 por uma arquiteta e um engenheiro, o Atelier Vértice nasceu da vontade de juntar duas culturas que costumam trabalhar separadas.</p>
+    <div class="prose"><p>Hoje somos 28 pessoas entre arquitetos, engenheiros, mestres de obra e especialistas em sustentabilidade. Mantemos poucos projetos simultâneos de propósito: cada obra tem um responsável do início ao fim.</p><p>Acreditamos em materiais honestos, em soluções passivas de conforto e em orçamentos que se cumprem. Nossas obras reduzem em média 24% do consumo de energia frente ao padrão do mercado.</p></div></div>
+    <div class="team">{eq.map(([n, c]) => <div><h3>{n}</h3><span>{c}</span></div>)}</div>
+    <p style="margin-top:3rem;font-size:.85rem;color:var(--mut)">Nomes e dados fictícios, para demonstração.</p>
+  </div></section>
+</Base>

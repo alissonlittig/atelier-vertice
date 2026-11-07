@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+const p = [['Escuta e viabilidade', 'Visita ao terreno, leitura da legislação e conversa sobre orçamento e prazos. Saímos com um briefing claro e uma estimativa honesta.'], ['Estudo preliminar', 'Croquis, maquete e implantação. Apresentamos duas alternativas para decidir juntos.'], ['Projeto executivo', 'Detalhamento completo de arquitetura, estrutura e instalações, compatibilizado em modelo 3D.'], ['Obra', 'Gestão própria de canteiro, cronograma semanal e relatório fotográfico para o cliente acompanhar de onde estiver.'], ['Entrega e pós-obra', 'Vistoria final, manual do proprietário e visita de acompanhamento após seis meses.']];
+---
+<Base title="Processo · Atelier Vértice" desc="As cinco etapas do trabalho do Atelier Vértice, da escuta à entrega.">
+  <section><div class="wrap">
+    <span class="eyebrow">Processo</span><h1>Cinco etapas, sem surpresas</h1>
+    <ol class="steps" style="margin-top:3rem">{p.map(([t, d], i) => <li><span class="n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3>{t}</h3><p>{d}</p></div></li>)}</ol>
+  </div></section>
+</Base>

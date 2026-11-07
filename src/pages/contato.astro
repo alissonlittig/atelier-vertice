@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contato · Atelier Vértice" desc="Fale com o Atelier Vértice sobre seu próximo projeto.">
+  <section><div class="wrap split">
+    <div><span class="eyebrow">Contato</span><h1>Vamos conversar</h1><p class="lead">Conte um pouco sobre o terreno, o programa e o prazo.</p>
+      <p style="margin-top:2rem;color:var(--mut)">Rua das Acácias, 120 · Curitiba, PR<br>Endereço fictício. Este formulário é uma demonstração e não envia dados.</p></div>
+    <form id="f" novalidate>
+      <label>Nome<input name="n" required autocomplete="name"></label>
+      <label>E-mail<input name="e" type="email" required autocomplete="email"></label>
+      <label>Tipo de projeto<select name="t"><option>Residencial</option><option>Corporativo</option><option>Cultural</option><option>Reforma</option></select></label>
+      <label>Mensagem<textarea name="m" required></textarea></label>
+      <button class="btn" type="submit">Enviar mensagem</button>
+      <p class="ok" id="ok" role="status" hidden>Obrigado! (Demonstração: nada foi enviado.)</p>
+    </form>
+  </div></section>
+  <script>
+    const f = document.getElementById('f') as HTMLFormElement;
+    f.addEventListener('submit', (e) => { e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; } (document.getElementById('ok') as HTMLElement).hidden = false; f.reset(); });
+  </script>
+</Base>
